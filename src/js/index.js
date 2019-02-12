@@ -17,7 +17,10 @@
     },
 
     bootstrap(node) {
-      return null;
+      const appBlock = node || document.querySelector('*[ng-app]');
+      const nodeElements = appBlock.querySelectorAll('*');
+
+      nodeElements.forEach(element => this.compile(element));
     }
   };
 

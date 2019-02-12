@@ -7,7 +7,13 @@
     },
 
     compile(node) {
-      return null;
+      const attrArray = node.getAttributeNames();
+
+      attrArray.forEach(attrs => {
+        if (directives[attrs]) {
+          directives[attrs].forEach(callback => callback(node));
+        }
+      });
     },
 
     bootstrap(node) {

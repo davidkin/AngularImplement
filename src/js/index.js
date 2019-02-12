@@ -1,9 +1,9 @@
 (function() {
-  const directives = [{}];
+  const directives = {};
 
   const smallAngular = {
-    directive() {
-      return null;
+    directive(name, callback) {
+      directives[name] = [callback];
     },
 
     compile(node) {
@@ -14,6 +14,9 @@
       return null;
     }
   };
+
+  smallAngular.directive('ng-click', function(el) {});
+  smallAngular.directive('ng-show', function(el) {});
 
   window.smallAngular = smallAngular;
 }());

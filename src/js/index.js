@@ -1,31 +1,35 @@
-(function() {
-  const directives = {};
+class SmallAngular {
+  constructor() {
+    this.directives = {};
+  }
 
-  const smallAngular = {
-    directive(name, callback) {
-      directives[name] = [callback];
-    },
+  directive(name, callback) {
+    this.directives[name] = [callback];
+  }
 
-    compile(node) {
-      const attrArray = node.getAttributeNames();
+  compile(node) {
+    const attrArray = node.getAttributeNames();
 
-      attrArray.forEach(attrs => {
-        if (directives[attrs]) {
-          directives[attrs].forEach(callback => callback(node));
-        }
-      });
-    },
+    attrArray.forEach(attrs => {
+      if (this.directives[attrs]) {
+        this.directives[attrs].forEach(callback => callback(node));
+      }
+    });
+  }
 
-    bootstrap(node) {
-      const appBlock = node || document.querySelector('*[ng-app]');
-      const nodeElements = appBlock.querySelectorAll('*');
+  bootstrap(node) {
+    const appBlock = node || document.querySelector('*[ng-app]');
+    const nodeElements = appBlock.querySelectorAll('*');
 
-      nodeElements.forEach(element => this.compile(element));
-    }
-  };
+    nodeElements.forEach(element => this.compile(element));
+  }
+}
 
-  smallAngular.directive('ng-click', function(el) {});
-  smallAngular.directive('ng-show', function(el) {});
+const sa = new SmallAngular();
 
-  window.smallAngular = smallAngular;
-}());
+sa.directive('ng-click', function(el) {});
+sa.directive('ng-show', function(el) {});
+
+
+console.log('---', sa);
+console.log('---', sa.directives);

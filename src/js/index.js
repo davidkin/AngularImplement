@@ -27,9 +27,10 @@ class SmallAngular {
 
 const sa = new SmallAngular();
 
-sa.directive('ng-click', function(el) {});
-sa.directive('ng-show', function(el) {});
+sa.directive('ng-click', function(el) {
+  console.log('called directive ng-click on element', el);
+});
 
-
-console.log('---', sa);
-console.log('---', sa.directives);
+sa.directive('ng-show', function(el) {
+  console.log('called directive ng-show on element', el);
+});

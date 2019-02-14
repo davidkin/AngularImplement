@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="public/css/style.css">
-  <title>AngularJS</title>
-</head>
-    
-<body ng-app ng-init="name='ivan'">
-  <div ng-show="true"> hi Ivan!!! </div>
-  <input ng-model="name"/>
-  <p ng-make-short>qqq qqq qqq qqq qqq qqq qqq</p>
-  <p ng-bind="name"></p>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="public/css/style.css">
+    <title>AngularJS</title>
+  </head>
+      
+  <body ng-app ng-init = "name = 'David'" random-color>
+    <div ng-show = false> hi Ivan!!! </div>
+    <input ng-model = "name"/>
+
+    <p make-short lngth='6' to-uppercase>qqq qqq qqq qqq qqq qqq qqq</p>
+    <button ng-click = "name = 'Vasya'">click (Set name to Vasya)</button>
+    <p ng-bind = "name"></p>
+
+    <ul ng-show = "name === 'Vasya'" ng-repeat = 'letter in name'>
+      <li>One</li>
+    </ul>
+  </body>
+
 
   <script src="src/js/index.js"></script>
 </html>

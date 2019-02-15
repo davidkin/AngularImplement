@@ -74,7 +74,7 @@
 
   smallAngular.directive('ng-model', function(scope, el, data) {
     el.addEventListener('input', e => {
-      eval(`${data} = el.value`); // scope[data] = el.value;
+      eval(`${data} = el.value`);
       scope.$apply();
     });
   });
@@ -88,7 +88,26 @@
 
 
   smallAngular.directive('ng-repeat', function(scope, el, data) {
-    // console.log('called directive ng-repeat on element', el);
+    const collectionName = data.split(' ')[2];
+    const parentEl = el.parentNode;
+
+    scope.$watch(collectionName, () => {
+      const collection = scope[collectionName];
+      const similarEls = Array.from(document.querySelectorAll(`[ng-repeat="${data}"]`));
+
+      for (const item of collection) {
+        const clonedEl = el.cloneNode(false);
+
+        clonedEl.innerText = item;
+        parentEl.appendChild(clonedEl);
+      }
+
+      for (const el of similarEls) {
+        el.remove();
+      }
+    });
+
+    scope.$apply();
   });
 
   smallAngular.directive('make-short', function(scope, el, attrs) {
@@ -108,23 +127,10 @@
       color += letters[Math.floor(Math.random() * 16)];
     }
 
-    el.style.backgroundColor = color;
+    el.style.color = color;
   });
 
   smallAngular.bootstrap();
 
   window.smallAngular = smallAngular;
 }());
-
-
-// ng-repeat - повторяет тот блок на котором висит
-// <li ng-repeat="letter in name"></li>
-
-// name  - берем в скоупе и побуквенно печатаем - тоесть результат если имя Вася будет -
-
-// <li >В</li>
-// <li >А</li>
-// <li >С</li>
-// <li >Я</li>
-
-// random-color - закрашивает себя при клике в произвольный цвет

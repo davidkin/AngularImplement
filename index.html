@@ -9,19 +9,20 @@
     <title>AngularJS</title>
   </head>
       
-  <body ng-app ng-init = "name = 'David'" random-color>
-    <div ng-show = false> hi Ivan!!! </div>
+  <body ng-app ng-init = "name = 'David'">
+    <div ng-show = 'false'> hi Ivan!!! </div>
     <input ng-model = "name"/>
-
-    <p make-short lngth='6' to-uppercase>qqq qqq qqq qqq qqq qqq qqq</p>
+    
     <button ng-click = "name = 'Vasya'">click (Set name to Vasya)</button>
+    <p make-short lngth='6' to-uppercase random-color>qqq qqq qqq qqq qqq qqq qqq</p>
     <p ng-bind = "name"></p>
 
-    <ul ng-show = "name === 'Vasya'" ng-repeat = 'letter in name'>
-      <li>One</li>
+    <ul >
+      <li ng-repeat = 'letter in name'></li>
     </ul>
   </body>
 
 
+  <script src="src/js/utils.js"></script>
   <script src="src/js/index.js"></script>
 </html>

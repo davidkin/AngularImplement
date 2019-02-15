@@ -28,7 +28,7 @@
 
       attrArray.forEach(attrs => {
         if (directives[attrs] && attrs.startsWith('ng-')) {
-          directives[attrs].forEach(callback => callback(rootScope, node, node.getAttribute(attrs)));
+          directives[attrs].forEach(callback => callback(rootScope, node));
         } else if (directives[attrs] && !attrs.startsWith('ng-')) {
           directives[attrs].forEach(callback => callback(rootScope, node, node.attributes));
         }
@@ -38,16 +38,20 @@
     bootstrap(node) {
       const appBlock = node || document.querySelector('*[ng-app]');
       const nodeElements = appBlock.querySelectorAll('*');
+
       this.compile(appBlock);
       nodeElements.forEach(element => this.compile(element));
     }
   };
 
-  smallAngular.directive('ng-init', function(scope, el, data) {
+  smallAngular.directive('ng-init', function(scope, el) {
+    const data = el.getAttribute('ng-init');
     eval(data);
   });
 
-  smallAngular.directive('ng-show', function(scope, el, data) {
+  smallAngular.directive('ng-show', function(scope, el) {
+    const data = el.getAttribute('ng-show');
+
     el.style.display = eval(data) ? 'block' : 'none';
 
     scope.$watch(data, () => {
@@ -57,14 +61,17 @@
     scope.$apply();
   });
 
-  smallAngular.directive('ng-click', function(scope, el, data) {
+  smallAngular.directive('ng-click', function(scope, el) {
+    const data = el.getAttribute('ng-click');
+
     el.addEventListener('click', e => {
       eval(data);
       scope.$apply();
     });
   });
 
-  smallAngular.directive('ng-hide', function(scope, el, data) {
+  smallAngular.directive('ng-hide', function(scope, el) {
+    const data = el.getAttribute('ng-hide');
     el.style.display = eval(data) ? 'none' : 'block';
 
     scope.$watch(data, () => {
@@ -72,14 +79,18 @@
     });
   });
 
-  smallAngular.directive('ng-model', function(scope, el, data) {
+  smallAngular.directive('ng-model', function(scope, el) {
+    const data = el.getAttribute('ng-model');
+
     el.addEventListener('input', e => {
       eval(`${data} = el.value`);
       scope.$apply();
     });
   });
 
-  smallAngular.directive('ng-bind', function(scope, el, data) {
+  smallAngular.directive('ng-bind', function(scope, el) {
+    const data = el.getAttribute('ng-bind');
+
     scope.$watch(data, () => {
       el.innerHTML = eval(data);
     });
@@ -87,7 +98,8 @@
   });
 
 
-  smallAngular.directive('ng-repeat', function(scope, el, data) {
+  smallAngular.directive('ng-repeat', function(scope, el) {
+    const data = el.getAttribute('ng-repeat');
     const collectionName = data.split(' ')[2];
     const parentEl = el.parentNode;
 
@@ -112,7 +124,12 @@
 
   smallAngular.directive('make-short', function(scope, el, attrs) {
     const { lngth: { value: lengthValue } } = attrs;
-    el.innerHTML = `${el.innerHTML.slice(0, lengthValue || 5)} ...`;
+
+    scope.$watch(() => lengthValue, () => {
+      el.innerHTML = `${el.innerHTML.slice(0, lengthValue || 5)} ...`;
+    });
+
+    scope.$apply();
   });
 
   smallAngular.directive('to-uppercase', function(scope, el, attrs) {

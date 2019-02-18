@@ -86,6 +86,10 @@
       eval(`${data} = el.value`);
       scope.$apply();
     });
+
+    scope.$watch(data, () => {
+      el.value = eval(data);
+    });
   });
 
   smallAngular.directive('ng-bind', function(scope, el) {
@@ -96,7 +100,6 @@
     });
     scope.$apply();
   });
-
 
   smallAngular.directive('ng-repeat', function(scope, el) {
     const data = el.getAttribute('ng-repeat');

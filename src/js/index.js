@@ -96,7 +96,7 @@
     const data = el.getAttribute('ng-bind');
 
     scope.$watch(data, () => {
-      el.innerHTML = eval(data);
+      el.innerText = eval(data);
     });
     scope.$apply();
   });
@@ -129,14 +129,14 @@
     const { lngth: { value: lengthValue } } = attrs;
 
     scope.$watch(() => lengthValue, () => {
-      el.innerHTML = `${el.innerHTML.slice(0, lengthValue || 5)} ...`;
+      el.innerText = `${el.innerText.slice(0, lengthValue || 5)} ...`;
     });
 
     scope.$apply();
   });
 
   smallAngular.directive('to-uppercase', function(scope, el, attrs) {
-    el.innerHTML = el.innerHTML.toUpperCase();
+    el.innerText = el.innerText.toUpperCase();
   });
 
   smallAngular.directive('random-color', function(scope, el, attrs) {

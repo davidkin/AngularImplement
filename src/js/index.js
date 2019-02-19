@@ -130,10 +130,11 @@
   });
 
   smallAngular.directive('make-short', function(scope, el, attrs) {
-    el.innerText = `${el.innerText.slice(0, attrs.lngth.value || 5)} ...`;
+    const shortLength = () => el.innerText.slice(0, attrs.lngth.value || 5);
+    el.innerText = `${shortLength()} ...`;
 
     scope.$watch(() => attrs.lngth.value, () => {
-      el.innerText = `${el.innerText.slice(0, attrs.lngth.value || 5)} ...`;
+      el.innerText = `${shortLength()} ...`;
     });
   });
 

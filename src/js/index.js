@@ -126,10 +126,10 @@
   });
 
   smallAngular.directive('make-short', function(scope, el, attrs) {
-    const { lngth: { value: lengthValue } } = attrs;
+    // const { lngth: { value: lengthValue } } = attrs;
 
-    scope.$watch(() => lengthValue, () => {
-      el.innerText = `${el.innerText.slice(0, lengthValue || 5)} ...`;
+    scope.$watch(() => attrs.lngth.value, () => {
+      el.innerText = `${el.innerText.slice(0, attrs.lngth.value || 5)} ...`;
     });
 
     scope.$apply();

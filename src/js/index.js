@@ -108,7 +108,7 @@
 
     function repeat() {
       const collection = scope[collectionName];
-      const similarEls = document.querySelectorAll(`[ng-repeat="${data}"]`);
+      const similarEls = parentEl.querySelectorAll(`[ng-repeat="${data}"]`);
 
       for (const item of collection) {
         const clonedEl = el.cloneNode(false);

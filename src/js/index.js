@@ -126,8 +126,6 @@
   });
 
   smallAngular.directive('make-short', function(scope, el, attrs) {
-    // const { lngth: { value: lengthValue } } = attrs;
-
     scope.$watch(() => attrs.lngth.value, () => {
       el.innerText = `${el.innerText.slice(0, attrs.lngth.value || 5)} ...`;
     });
@@ -140,14 +138,18 @@
   });
 
   smallAngular.directive('random-color', function(scope, el, attrs) {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
+    el.addEventListener('click', () => {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
 
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
 
-    el.style.color = color;
+      el.style.color = color;
+
+      scope.$apply();
+    });
   });
 
   smallAngular.bootstrap();

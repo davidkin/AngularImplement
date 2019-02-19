@@ -103,7 +103,7 @@
 
   smallAngular.directive('ng-repeat', function(scope, el) {
     const data = el.getAttribute('ng-repeat');
-    const collectionName = data.split(' ')[2];
+    const [, collectionName] = data.split(' in ');
     const parentEl = el.parentNode;
 
     function repeat() {

@@ -106,9 +106,9 @@
     const collectionName = data.split(' ')[2];
     const parentEl = el.parentNode;
 
-    scope.$watch(collectionName, () => {
+    function repeat() {
       const collection = scope[collectionName];
-      const similarEls = Array.from(document.querySelectorAll(`[ng-repeat="${data}"]`));
+      const similarEls = document.querySelectorAll(`[ng-repeat="${data}"]`);
 
       for (const item of collection) {
         const clonedEl = el.cloneNode(false);
@@ -120,17 +120,19 @@
       for (const el of similarEls) {
         el.remove();
       }
-    });
+    }
 
-    scope.$apply();
+    repeat();
+
+    scope.$watch(collectionName, () => {
+      repeat();
+    });
   });
 
   smallAngular.directive('make-short', function(scope, el, attrs) {
     scope.$watch(() => attrs.lngth.value, () => {
       el.innerText = `${el.innerText.slice(0, attrs.lngth.value || 5)} ...`;
     });
-
-    scope.$apply();
   });
 
   smallAngular.directive('to-uppercase', function(scope, el, attrs) {
@@ -147,8 +149,6 @@
       }
 
       el.style.color = color;
-
-      scope.$apply();
     });
   });
 

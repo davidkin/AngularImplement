@@ -54,7 +54,7 @@
 
     el.style.display = eval(data) ? 'block' : 'none';
 
-    scope.$watch(data, () => {
+    scope.$watch(() => eval(data), () => {
       el.style.display = eval(data) ? 'block' : 'none';
     });
 
@@ -74,7 +74,7 @@
     const data = el.getAttribute('ng-hide');
     el.style.display = eval(data) ? 'none' : 'block';
 
-    scope.$watch(data, () => {
+    scope.$watch(() => eval(data), () => {
       el.style.display = eval(data) ? 'none' : 'block';
     });
   });
@@ -94,11 +94,11 @@
 
   smallAngular.directive('ng-bind', function(scope, el) {
     const data = el.getAttribute('ng-bind');
+    el.innerText = eval(data);
 
     scope.$watch(data, () => {
       el.innerText = eval(data);
     });
-    scope.$apply();
   });
 
   smallAngular.directive('ng-repeat', function(scope, el) {
@@ -130,6 +130,8 @@
   });
 
   smallAngular.directive('make-short', function(scope, el, attrs) {
+    el.innerText = `${el.innerText.slice(0, attrs.lngth.value || 5)} ...`;
+
     scope.$watch(() => attrs.lngth.value, () => {
       el.innerText = `${el.innerText.slice(0, attrs.lngth.value || 5)} ...`;
     });
